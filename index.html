@@ -10,9 +10,6 @@
 .yes-celebration{animation:celebrate .45s ease-in-out 3}@keyframes celebrate{50%{filter:brightness(1.35) saturate(1.4)}}
 .gif-wrap img{width:100%;height:100%;object-fit:cover;display:block}
 .anime-card:last-child{grid-column:1 / -1}
-.music-player{width:min(100%,640px);aspect-ratio:16/9;margin:0 auto}
-.music-player:not(.hidden){display:block}
-.music-player iframe{width:100%;height:100%;border:0;display:block}
 </style></head>
 <body>
 <header class="nav"><a class="brand" href="#home"><span>♡</span> CrypticChoppa745</a><nav class="navlinks"><a href="#home">Home</a><a href="#why">Why You?</a><a href="#future">Our Future</a><a href="#note">A Little Note</a></nav></header>
@@ -25,9 +22,9 @@ const response=document.getElementById('response'), hint=document.getElementById
 function hearts(count=18){for(let i=0;i<count;i++){const h=document.createElement('span');h.className='floating-heart';h.textContent=['♥','♡','✦'][Math.floor(Math.random()*3)];h.style.setProperty('--x',Math.random()*100+'vw');h.style.setProperty('--s',(14+Math.random()*22)+'px');h.style.setProperty('--d',(3+Math.random()*3)+'s');document.body.appendChild(h);setTimeout(()=>h.remove(),6500)}}
 document.getElementById('yes').addEventListener('click',()=>{response.textContent='AYOOOO YOU SAID YESSSS 😭💗';hint.textContent='I’m actually cheesing so hard  ♡';hearts(90);document.body.classList.add('yes-celebration');setTimeout(()=>document.body.classList.remove('yes-celebration'),1800);startMusic()});
 const reject=document.getElementById('maybe');let dodges=0;function dodge(){const pad=12;const maxX=Math.max(pad,window.innerWidth-reject.offsetWidth-pad);const maxY=Math.max(100,window.innerHeight-reject.offsetHeight-pad);reject.style.position='fixed';reject.style.left=(pad+Math.random()*(maxX-pad))+'px';reject.style.top=(80+Math.random()*(maxY-80))+'px';reject.style.zIndex='30';dodges++;response.textContent=['GOING ONCE 😭','GOING TWICE 💀','FORGET ABOUT IT CUHHH🌀'][dodges%3]}reject.addEventListener('mouseenter',dodge);reject.addEventListener('touchstart',e=>{e.preventDefault();dodge()},{passive:false});
-const player=document.getElementById('musicPlayer'),musicButton=document.getElementById('musicToggle');musicButton.textContent='▶ Play our song 🎵';
-function startMusic(){if(player.dataset.playing)return;player.classList.add('music-player');player.classList.remove('hidden');player.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/0fcsGS1dEro?autoplay=1&loop=1&playlist=0fcsGS1dEro&origin=https%3A%2F%2Fcrypticchoppa.github.io" title="Our song" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" style="width:100%;height:100%;border:0"></iframe>';player.dataset.playing='yes';musicButton.textContent='♪ Our song is playing (use the player controls for sound) 💗'}
-musicButton.addEventListener('click',()=>{if(player.dataset.playing){player.innerHTML='';player.classList.add('hidden');player.classList.remove('music-player');delete player.dataset.playing;musicButton.textContent='▶ Play our song 🎵'}else{startMusic()}});
+const musicButton=document.getElementById('musicToggle');musicButton.textContent='▶ Open our song on YouTube 🎵';
+function startMusic(){window.open('https://www.youtube.com/watch?v=0fcsGS1dEro','_blank','noopener,noreferrer');musicButton.textContent='♪ Song opens on YouTube — press play there 💗'}
+musicButton.addEventListener('click',startMusic);
 const maybeLines=['Aight take your time 😭 just had to shoot my shot 💜','No pressure fr. I just wanted you to know how I feel. ♡','Take Your Time💗'];let n=0;reject.addEventListener('click',()=>{response.textContent=maybeLines[n%maybeLines.length];n++;hearts(19)});
 // Gentle ambient hearts, with reduced-motion preference respected.
 if(!matchMedia('(prefers-reduced-motion: reduce)').matches){setInterval(()=>{if(Math.random()>.35)hearts(1)},2200)}
